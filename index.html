@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGenie - AI Learning Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>EduGenie</h1>
+        <p class="subtitle">Google Gemini Powered Learning Assistant</p>
+
+        <label for="task">Choose a Learning Task</label>
+
+        <select id="task">
+            <option value="explain">Explain</option>
+            <option value="qna">Question & Answer</option>
+            <option value="quiz">Quiz</option>
+            <option value="summary">Summary</option>
+            <option value="recommend">Recommend Learning Path</option>
+        </select>
+
+        <label for="question">Enter your topic or question</label>
+
+        <textarea id="question"
+            placeholder="Example: Explain Artificial Intelligence in simple words"></textarea>
+
+        <button onclick="generateResponse()">Submit</button>
+
+        <div class="result">
+            <h2>AI Response</h2>
+            <p id="response">Your answer will appear here.</p>
+        </div>
+
+    </div>
+
+   <script>
+    async function generateResponse() {
+
+        const question = document.getElementById("question").value;
+        const task = document.getElementById("task").value;
+        const response = document.getElementById("response");
+
+        if (question.trim() === "") {
+            response.innerText = "Please enter a topic or question.";
+            return;
+        }
+
+        response.innerText = "Gemini is generating your answer...";
+
+        try {
+            const result = await fetch(
+    "http://127.0.0.1:8000/ask?question=" +
+    encodeURIComponent(question) +
+    "&task=" +
+    encodeURIComponent(task)
+);
+
+            const data = await result.json();
+
+            response.innerText = data.answer;
+
+        } catch (error) {
+            response.innerText =
+                "Unable to connect to EduGenie backend. Please make sure the backend server is running.";
+        }
+    }
+</script>
+
+</body>
+</html>
