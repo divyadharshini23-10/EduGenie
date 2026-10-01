@@ -52,13 +52,13 @@
 
         response.innerText = "Gemini is generating your answer...";
 
-        try {
-            const result = await fetch(
-    "http://127.0.0.1:8000/ask?question=" +
-    encodeURIComponent(question) +
-    "&task=" +
-    encodeURIComponent(task)
-);
+try {
+    const result = await fetch(
+        "https://edugenie-1-1ozi.onrender.com/ask?question=" +
+        encodeURIComponent(question) +
+        "&task=" +
+        encodeURIComponent(task)
+    );
 
             const data = await result.json();
 
