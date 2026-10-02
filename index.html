@@ -38,7 +38,7 @@
 
     </div>
 
-   <script>
+  <script>
 async function generateResponse() {
 
     const question = document.getElementById("question").value;
@@ -53,12 +53,12 @@ async function generateResponse() {
     responseBox.innerText = "Gemini is generating your answer...";
 
     try {
-
         let url = "";
 
         if (task === "explain") {
             url = "https://edugenie-1-1ozi.onrender.com/explain?topic=" +
-                encodeURIComponent(question);git add .
+                encodeURIComponent(question);
+        }
 
         else if (task === "qna") {
             url = "https://edugenie-1-1ozi.onrender.com/qa?question=" +
@@ -101,7 +101,6 @@ async function generateResponse() {
         }
 
     } catch (error) {
-
         responseBox.innerText =
             "Unable to connect to EduGenie backend. Please make sure the backend server is running.";
 
