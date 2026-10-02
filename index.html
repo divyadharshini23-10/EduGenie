@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGenie - AI Learning Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>EduGenie</h1>
+        <p class="subtitle">Google Gemini Powered Learning Assistant</p>
+
+        <label for="task">Choose a Learning Task</label>
+
+        <select id="task">
+            <option value="explain">Explain</option>
+            <option value="qna">Question & Answer</option>
+            <option value="quiz">Quiz</option>
+            <option value="summary">Summary</option>
+            <option value="recommend">Recommend Learning Path</option>
+        </select>
+
+        <label for="question">Enter your topic or question</label>
+
+        <textarea id="question"
+            placeholder="Example: Explain Artificial Intelligence in simple words"></textarea>
+
+        <button onclick="generateResponse()">Submit</button>
+
+        <div class="result">
+            <h2>AI Response</h2>
+            <p id="response">Your answer will appear here.</p>
+        </div>
+
+    </div>
+
+   <script>
+async function generateResponse() {
+
+    const question = document.getElementById("question").value;
+    const task = document.getElementById("task").value;
+    const responseBox = document.getElementById("response");
+
+    if (question.trim() === "") {
+        responseBox.innerText = "Please enter a topic or question.";
+        return;
+    }
+
+    responseBox.innerText = "Gemini is generating your answer...";
+
+    try {
+
+        let url = "";
+
+        if (task === "explain") {
+            url = "http://127.0.0.1:8001/explain?topic=" +
+                encodeURIComponent(question);
+        }
+
+        else if (task === "qna") {
+            url = "http://127.0.0.1:8001/qa?question=" +
+                encodeURIComponent(question);
+        }
+
+        else if (task === "quiz") {
+            url = "http://127.0.0.1:8001/quiz?topic=" +
+                encodeURIComponent(question);
+        }
+
+        else if (task === "summary") {
+            url = "http://127.0.0.1:8001/summarize?text=" +
+                encodeURIComponent(question);
+        }
+
+        else if (task === "recommend") {
+            url = "http://127.0.0.1:8001/learn/recommendations?topic=" +
+                encodeURIComponent(question);
+        }
+
+        const result = await fetch(url);
+        const data = await result.json();
+
+        if (data.answer) {
+            responseBox.innerText = data.answer;
+        }
+        else if (data.summary) {
+            responseBox.innerText = data.summary;
+        }
+        else if (data.learning_path) {
+            responseBox.innerText = data.learning_path;
+        }
+        else if (data.quiz) {
+            responseBox.innerText =
+                JSON.stringify(data.quiz, null, 2);
+        }
+        else {
+            responseBox.innerText = "No response received.";
+        }
+
+    } catch (error) {
+
+        responseBox.innerText =
+            "Unable to connect to EduGenie backend. Please make sure the backend server is running.";
+
+        console.error(error);
+    }
+}
+</script>
+
+</body>
+</html>
