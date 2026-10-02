@@ -57,27 +57,26 @@ async function generateResponse() {
         let url = "";
 
         if (task === "explain") {
-            url = "http://127.0.0.1:8001/explain?topic=" +
-                encodeURIComponent(question);
-        }
+            url = "https://edugenie-1-1ozi.onrender.com/explain?topic=" +
+                encodeURIComponent(question);git add .
 
         else if (task === "qna") {
-            url = "http://127.0.0.1:8001/qa?question=" +
+            url = "https://edugenie-1-1ozi.onrender.com/qa?question=" +
                 encodeURIComponent(question);
         }
 
         else if (task === "quiz") {
-            url = "http://127.0.0.1:8001/quiz?topic=" +
+            url = "https://edugenie-1-1ozi.onrender.com/quiz?topic=" +
                 encodeURIComponent(question);
         }
 
         else if (task === "summary") {
-            url = "http://127.0.0.1:8001/summarize?text=" +
+            url = "https://edugenie-1-1ozi.onrender.com/summarize?text=" +
                 encodeURIComponent(question);
         }
 
         else if (task === "recommend") {
-            url = "http://127.0.0.1:8001/learn/recommendations?topic=" +
+            url = "https://edugenie-1-1ozi.onrender.com/learn/recommendations?topic=" +
                 encodeURIComponent(question);
         }
 
