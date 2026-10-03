@@ -19,3 +19,4 @@ EduGenie is an AI-powered learning assistant web app that helps users with smart
 - `requirements.txt` - Python project dependencies
 - `style.css` - Custom styles for the web pages
 -
+https://drive.google.com/file/d/11gcZgE7J250Y6mNXHiaH7nd8AbDYYgQ0/view?usp=sharing
